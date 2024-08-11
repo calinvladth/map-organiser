@@ -11,10 +11,7 @@
   let latLng;
   let marker;
 
-  console.log("WTF!?");
-
   onMount(async () => {
-    console.log("AAAAAA:", pick);
     const L = await import("leaflet");
     latLng = pick.location;
 

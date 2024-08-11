@@ -3,6 +3,7 @@
   import Marker from "./marker.svelte";
   import { goto } from "$app/navigation";
   import { page } from "$app/stores";
+  import Search from "./search.svelte";
 
   export let zoom = 13;
   export let location;
@@ -34,6 +35,15 @@
       location = [center.lat, center.lng];
 
       $page.url.searchParams.set("location", `${center.lat},${center.lng}`);
+      goto(`?${$page.url.searchParams.toString()}`);
+    });
+
+    map.on("geosearch/showlocation", (event) => {
+      const latLng = [event.location.y, event.location.x];
+      console.log(event.location.y, event.location.x);
+      location = latLng;
+
+      $page.url.searchParams.set("location", `${latLng[0]},${latLng[1]}`);
       goto(`?${$page.url.searchParams.toString()}`);
     });
 
@@ -84,6 +94,7 @@
         <Marker {map} {pick} bind:activePick bind:location />
       {/each}
     {/if}
+    <Search {map} />
   {/if}
   <div class="w-full h-full absolute inset-0" bind:this={mapElement}></div>
 </main>
