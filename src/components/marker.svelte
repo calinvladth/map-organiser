@@ -3,28 +3,51 @@
   import { page } from "$app/stores";
   import { onDestroy, onMount } from "svelte";
 
-    export let location;
-    export let map;
+  export let location;
+  export let pick;
+  export let map;
+  export let activePick;
 
-    let marker; 
+  let latLng;
+  let marker;
 
-    onMount(async () => {
-        const L = await import('leaflet');
+  console.log("WTF!?");
 
-        marker = L.marker(location, {draggable: true}).bindPopup(`${location[0]} ${location[1]}`)
+  onMount(async () => {
+    console.log("AAAAAA:", pick);
+    const L = await import("leaflet");
+    latLng = pick.location;
 
-        marker.on('dragend', (event) => {
-            const markerLocation = event.target.getLatLng()
+    marker = L.marker(latLng, { draggable: true }).bindPopup(
+      `${latLng[0]} ${latLng[1]} / ${location}`
+    );
 
-            location = [markerLocation.lat, markerLocation.lng]
+    marker.on("dragend", (event) => {
+      const markerLocation = event.target.getLatLng();
 
-            $page.url.searchParams.set('location', `${markerLocation.lat},${markerLocation.lng}`)
-            goto(`?${$page.url.searchParams.toString()}`)
-        })
+      latLng = [markerLocation.lat, markerLocation.lng];
 
-        map.addLayer(marker)
-    })
-    onDestroy(() => {
-        map.removeLayer(marker)
-    })
+      if (location) {
+        location = latLng;
+
+        $page.url.searchParams.set(
+          "location",
+          `${markerLocation.lat},${markerLocation.lng}`
+        );
+      }
+
+      if (pick.id) {
+        activePick = pick.id;
+        $page.url.searchParams.set("activePick", pick.id);
+      }
+
+      goto(`?${$page.url.searchParams.toString()}`);
+    });
+
+    map.addLayer(marker);
+  });
+  onDestroy(() => {
+    console.log("Destroy: ", pick.id);
+    map.removeLayer(marker);
+  });
 </script>

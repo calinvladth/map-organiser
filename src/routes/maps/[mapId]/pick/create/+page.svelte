@@ -1,33 +1,39 @@
 <script>
-    import Button from "../../../../../components/button.svelte";
-    import { page } from "$app/stores";
+  import Button from "../../../../../components/button.svelte";
+  import { page } from "$app/stores";
   import { onMount } from "svelte";
 
-    let location = $page.url.searchParams.get('location')
+  let location = $page.url.searchParams.get("location");
 
-    onMount(() => {
-        console.log('AAA:', location)
-        location = location?.split(',')
-    }) 
+  onMount(() => {
+    location = location?.split(",");
+  });
 </script>
-  
 
 <div class="w-full border-b border-black cursor-pointer p-5 flex justify-end">
-    <Button onClick={() => window.history.back()}>Back</Button>
+  <Button onClick={() => window.history.back()}>Back</Button>
 </div>
 
 {#if location}
-    <p>Pick create {location[0]} {location[1]}</p>
-    
-    <label>Name</label>
-    <input type="text" class="text-sm box-border appearance-none border w-full py-2 px-3 text-gray-700 leading-tight border border-black focus:outline-none focus:border-blue-700">
+  <p>Pick create {location[0]} {location[1]}</p>
 
-    <label>Description</label>
-    <input type="text" class="text-sm box-border appearance-none border w-full py-2 px-3 text-gray-700 leading-tight border border-black focus:outline-none focus:border-blue-700">
+  <label>Name</label>
+  <input
+    type="text"
+    class="text-sm box-border appearance-none border w-full py-2 px-3 text-gray-700 leading-tight border border-black focus:outline-none focus:border-blue-700"
+  />
 
-    <label>Location</label>
-    <input type="text" class="text-sm box-border appearance-none border w-full py-2 px-3 text-gray-700 leading-tight border border-black focus:outline-none focus:border-blue-700">
+  <label>Description</label>
+  <input
+    type="text"
+    class="text-sm box-border appearance-none border w-full py-2 px-3 text-gray-700 leading-tight border border-black focus:outline-none focus:border-blue-700"
+  />
 
-    <Button>Save</Button>
+  <label>Location</label>
+  <input
+    type="text"
+    class="text-sm box-border appearance-none border w-full py-2 px-3 text-gray-700 leading-tight border border-black focus:outline-none focus:border-blue-700"
+  />
+
+  <Button>Save</Button>
 {/if}
-
