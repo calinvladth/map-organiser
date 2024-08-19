@@ -1,18 +1,25 @@
-<script>
+<script lang="ts">
+  import {
+    AuthenticationApi,
+    type AuthenticationForm,
+    type AuthenticationFormError,
+  } from "../../../api/authentication";
   import Button from "../../../components/button.svelte";
+  import { pb } from "../../../services/pb";
 
-  const form = {
+  const form: AuthenticationForm = {
     email: "",
     password: "",
   };
 
-  const formError = {
+  const formError: AuthenticationFormError = {
     email: false,
     password: false,
   };
 
-  function onSubmit() {
+  async function onSubmit() {
     console.log({ form, formError });
+    await AuthenticationApi.login(form);
   }
 </script>
 

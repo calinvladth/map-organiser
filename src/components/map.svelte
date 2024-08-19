@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { onMount, onDestroy } from "svelte";
   import Marker from "./marker.svelte";
   import { goto } from "$app/navigation";
@@ -10,6 +10,7 @@
   export let addPickView;
   export let picks = [];
   export let activePick;
+  export let mapId;
 
   let L;
   let mapElement;
@@ -82,6 +83,7 @@
     {:else if activePick}
       <Marker
         {map}
+        {mapId}
         pick={{
           id: activePick,
           location,
@@ -91,7 +93,7 @@
       />
     {:else}
       {#each picks as pick}
-        <Marker {map} {pick} bind:activePick bind:location />
+        <Marker {map} {pick} {mapId} bind:activePick bind:location />
       {/each}
     {/if}
     <Search {map} />

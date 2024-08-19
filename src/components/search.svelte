@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import "leaflet-geosearch/dist/geosearch.css";
   import { onDestroy, onMount } from "svelte";
 

@@ -29,6 +29,8 @@
     "@tailwindcss/ui": "^0.7.2",
     "browser-env": "^3.3.0",
     "leaflet": "^1.9.4",
-    "leaflet-geosearch": "^4.0.0"
+    "leaflet-geosearch": "^4.0.0",
+    "path": "^0.12.7",
+    "pocketbase": "^0.21.4"
   }
 }

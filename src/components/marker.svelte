@@ -2,11 +2,14 @@
   import { goto } from "$app/navigation";
   import { page } from "$app/stores";
   import { onDestroy, onMount } from "svelte";
+  import { ROUTES } from "../utils/constants";
+  import replaceKeysInUrl from "../utils/replaceKeysInURL";
 
   export let location;
   export let pick;
   export let map;
   export let activePick;
+  export let mapId;
 
   let latLng;
   let marker;
@@ -18,6 +21,26 @@
     marker = L.marker(latLng, { draggable: true }).bindPopup(
       `${latLng[0]} ${latLng[1]} / ${location}`
     );
+
+    marker.on("mouseover", (event) => {
+      marker.openPopup();
+    });
+
+    marker.on("mouseout", () => {
+      marker.closePopup();
+    });
+
+    marker.on("click", () => {
+      $page.url.searchParams.set("activePick", pick.id);
+      goto(
+        replaceKeysInUrl(
+          `${ROUTES.PICKS}?${$page.url.searchParams.toString()}`,
+          {
+            mapId: mapId,
+          }
+        )
+      );
+    });
 
     marker.on("dragend", (event) => {
       const markerLocation = event.target.getLatLng();
