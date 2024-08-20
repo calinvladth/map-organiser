@@ -20,6 +20,10 @@
     </a>
   </div>
 
+  {#if maps.length === 0}
+    <p>No maps available</p>
+  {/if}
+
   {#each maps as map}
     <a href={replaceKeysInUrl(ROUTES.MAP, { mapId: map.id })}>
       <div class="w-full border-b border-black cursor-pointer p-5">

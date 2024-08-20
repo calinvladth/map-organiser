@@ -10,20 +10,20 @@ type AuthenticationFormError = {
     password: boolean;
 }
 
-async function login(data: AuthenticationForm) {
+async function login({ data, cb }: { data: AuthenticationForm, cb: () => void }) {
     await pb.collection('users').authWithPassword(data.email, data.password)
+    cb()
 }
 
-async function register(data: AuthenticationForm) {
-    console.log('DATA: ', data)
-
+async function register({ data, cb }: { data: AuthenticationForm, cb: () => void }) {
     const record = await pb.collection('users').create({ ...data, passwordConfirm: data.password });
+    await pb.collection('users').authWithPassword(data.email, data.password)
+    cb()
+}
 
-    console.log('RECORD: ', record)
-    // TODO: Login
-
-    // await pb.collection('users').authWithPassword(data.email, data.password)
-    // console.log('AUTH: ', pb.authStore)
+async function logout(cb) {
+    pb.authStore.clear()
+    cb()
 }
 
 export type {
@@ -33,5 +33,6 @@ export type {
 
 export const AuthenticationApi = {
     login,
-    register
+    register,
+    logout
 }

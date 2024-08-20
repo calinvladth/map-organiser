@@ -1,10 +1,12 @@
 <script lang="ts">
+  import { goto } from "$app/navigation";
   import {
     AuthenticationApi,
     type AuthenticationForm,
     type AuthenticationFormError,
   } from "../../../api/authentication";
   import Button from "../../../components/button.svelte";
+  import { ROUTES } from "../../../utils/constants";
 
   const form: AuthenticationForm = {
     email: "",
@@ -18,12 +20,17 @@
 
   async function onSubmit() {
     console.log({ form, formError });
-    await AuthenticationApi.register(form);
+    await AuthenticationApi.register({
+      data: form,
+      cb: () => {
+        goto(ROUTES.MAPS);
+      },
+    });
   }
 </script>
 
 <div>
-  <p>Sign up</p>
+  <p>Register</p>
   <form on:submit|preventDefault={onSubmit}>
     <label>Email</label>
     <input
@@ -34,10 +41,16 @@
 
     <label>Password</label>
     <input
-      type="text"
+      type="password"
       bind:value={form.password}
       class="text-sm box-border appearance-none border w-full py-2 px-3 text-gray-700 leading-tight border border-black focus:outline-none focus:border-blue-700"
     />
+
+    <p class="text-xs">
+      Already have an account? <a href={ROUTES.LOGIN} class="text-blue-500"
+        >Login</a
+      >
+    </p>
 
     <Button buttonType="submit">Save</Button>
   </form>
