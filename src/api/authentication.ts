@@ -21,7 +21,7 @@ async function register({ data, cb }: { data: AuthenticationForm, cb: () => void
     cb()
 }
 
-async function logout(cb) {
+async function logout(cb: () => void) {
     pb.authStore.clear()
     cb()
 }

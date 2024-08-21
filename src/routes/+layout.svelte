@@ -2,6 +2,6 @@
   import "@/app.css";
 </script>
 
-<div class="w-full h-screen border-2 border-blue-500">
+<div class="w-full h-full border border-black">
   <slot></slot>
 </div>

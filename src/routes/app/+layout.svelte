@@ -23,23 +23,24 @@
 
 {#if loaded}
   <section class="flex items-start justify-start h-screen">
-    <div class="w-1/3 h-full border border-black">
-      <nav class="flex flex-col">
-        <p>{account.email}</p>
-        <Button
-          onClick={() =>
-            AuthenticationApi.logout(() => {
-              goto(ROUTES.LOGIN);
-            })}
-        >
-          Logout
-        </Button>
-        <a href={ROUTES.MAPS}>Maps</a>
-        <a href={ROUTES.ACCOUNT}>Account</a>
+    <div
+      class="w-1/4 h-full border-r border-black flex items-center flex-col py-5"
+    >
+      <div
+        class="border border-black w-20 h-20 rounded-full text-center flex items-center justify-center"
+        title={account.email}
+      >
+        <p class="text-3xl font-thin pb-1">
+          {Array.from(account.username)[0]}{Array.from(account.username)[1]}
+        </p>
+      </div>
+      <nav class="w-full flex flex-col border-t border-black mt-5">
+        <a href={ROUTES.MAPS} class="border-b border-black p-5">Maps</a>
+        <a href={ROUTES.ACCOUNT} class="border-b border-black p-5">Account</a>
       </nav>
     </div>
 
-    <div class="w-full h-full border border-red-500">
+    <div class="w-full h-full">
       <slot></slot>
     </div>
   </section>

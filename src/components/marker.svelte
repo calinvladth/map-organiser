@@ -1,15 +1,17 @@
-<script>
+<script lang="ts">
   import { goto } from "$app/navigation";
   import { page } from "$app/stores";
   import { onDestroy, onMount } from "svelte";
   import { ROUTES } from "../utils/constants";
   import replaceKeysInUrl from "../utils/replaceKeysInURL";
+  import type { MarkerType } from "../api/markers";
+  import type { MapType } from "../api/maps";
 
   export let location;
-  export let pick;
-  export let map;
-  export let activePick;
-  export let mapId;
+  export let pick: MarkerType;
+  export let map: MapType;
+  export let activePick: string;
+  export let mapId: string;
 
   let latLng;
   let marker;
@@ -18,9 +20,11 @@
     const L = await import("leaflet");
     latLng = pick.location;
 
-    marker = L.marker(latLng, { draggable: true }).bindPopup(
-      `${latLng[0]} ${latLng[1]} / ${location}`
-    );
+    marker = L.marker(latLng, { draggable: true });
+
+    if (pick.name) {
+      marker.bindPopup(`${pick.name}`);
+    }
 
     marker.on("mouseover", (event) => {
       marker.openPopup();
@@ -67,7 +71,6 @@
     map.addLayer(marker);
   });
   onDestroy(() => {
-    console.log("Destroy: ", pick.id);
     map.removeLayer(marker);
   });
 </script>

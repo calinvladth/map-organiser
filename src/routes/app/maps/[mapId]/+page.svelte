@@ -52,7 +52,6 @@
   onMount(async () => {
     map = await MapsApi.listById(mapId);
     picks = await MarkersApi.list(mapId);
-    console.log("OO: ", picks);
 
     if (!location) {
       if (map.isCentered) {
@@ -127,7 +126,7 @@
     </div>
   </div>
 
-  <div class="border border-black h-full relative">
+  <div class=" h-full relative">
     {#if loaded && location}
       <Map {zoom} {mapId} bind:location bind:activePick {addPickView} {picks} />
     {:else}
