@@ -3,11 +3,16 @@
   import { onMount } from "svelte";
 
   import Button from "@/components/button.svelte";
-  import { MarkersApi, type MarkerType } from "@/api/markers";
+  import {
+    MarkersApi,
+    type MarkerType,
+    type MarkerFormError,
+  } from "@/api/markers";
   import { pb } from "@/services/pb";
   import { goto } from "$app/navigation";
   import replaceKeysInUrl from "../../../../../utils/replaceKeysInURL";
   import { ROUTES } from "../../../../../utils/constants";
+  import { Validation } from "../../../../../utils/validation";
 
   let pick: MarkerType;
 
@@ -22,6 +27,11 @@
     description: "",
     user: "",
     map: mapId,
+  };
+
+  let formError: MarkerFormError = {
+    name: false,
+    description: false,
   };
 
   onMount(async () => {
@@ -44,9 +54,34 @@
   });
 
   async function onSubmit() {
-    if (pick?.id) {
-      MarkersApi.update({
-        pickId: pick.id,
+    formError.name = Validation.checkText(form.name);
+    formError.description = Validation.checkText(form.description);
+
+    const hasError = Validation.checkErrors(formError);
+
+    console.log(formError, form);
+
+    if (!hasError) {
+      console.log("PASS");
+
+      if (pick?.id) {
+        MarkersApi.update({
+          pickId: pick.id,
+          data: form,
+          cb: () => {
+            $page.url.searchParams.delete("activePick");
+            goto(
+              replaceKeysInUrl(
+                `${ROUTES.MAP}?${$page.url.searchParams.toString()}`,
+                { mapId: mapId }
+              )
+            );
+          },
+        });
+        return;
+      }
+
+      MarkersApi.create({
         data: form,
         cb: () => {
           $page.url.searchParams.delete("activePick");
@@ -58,46 +93,46 @@
           );
         },
       });
-      return;
     }
-
-    MarkersApi.create({
-      data: form,
-      cb: () => {
-        $page.url.searchParams.delete("activePick");
-        goto(
-          replaceKeysInUrl(
-            `${ROUTES.MAP}?${$page.url.searchParams.toString()}`,
-            { mapId: mapId }
-          )
-        );
-      },
-    });
   }
 </script>
 
-<div class="w-full border-b border-black cursor-pointer p-5 flex justify-end">
-  <Button onClick={() => window.history.back()}>Back</Button>
-</div>
+<section class="w-full">
+  <div class="w-full border-b border-black p-5 flex justify-between gap-3">
+    <Button onClick={() => window.history.back()}>Back</Button>
+  </div>
 
-{#if location}
-  <p>Pick {location[0]} {location[1]}</p>
-{/if}
+  <h1 class="text-3xl p-5 border-b border-black">
+    {pick?.id ? "Edit marker" : "Add marker"}
+  </h1>
 
-<form on:submit|preventDefault={onSubmit}>
-  <label>Name</label>
-  <input
-    type="text"
-    bind:value={form.name}
-    class="text-sm box-border appearance-none border w-full py-2 px-3 text-gray-700 leading-tight border border-black focus:outline-none focus:border-blue-700"
-  />
+  <form
+    on:submit|preventDefault={onSubmit}
+    class="w-full flex flex-col gap-5 p-5"
+  >
+    <div>
+      <label class="text-sm {formError.name && 'text-red-500'}">Name</label>
+      <input
+        type="text"
+        bind:value={form.name}
+        class="text-sm box-border appearance-none w-full py-2 px-3 text-gray-700 leading-tight border {formError.name
+          ? 'border-red-500'
+          : 'border-black'}  focus:outline-none focus:border-blue-700"
+      />
+    </div>
 
-  <label>Description</label>
-  <input
-    type="text"
-    bind:value={form.description}
-    class="text-sm box-border appearance-none border w-full py-2 px-3 text-gray-700 leading-tight border border-black focus:outline-none focus:border-blue-700"
-  />
+    <div>
+      <label class="text-sm {formError.description && 'text-red-500'}"
+        >Description</label
+      >
+      <textarea
+        bind:value={form.description}
+        class="text-sm box-border appearance-none w-full h-20 py-2 px-3 text-gray-700 leading-tight border {formError.description
+          ? 'border-red-500'
+          : 'border-black '} focus:outline-none focus:border-blue-700"
+      />
+    </div>
 
-  <Button buttonType="submit">Save</Button>
-</form>
+    <Button buttonType="submit">Save</Button>
+  </form>
+</section>

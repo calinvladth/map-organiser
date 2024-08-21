@@ -80,7 +80,7 @@
 
     <form
       on:submit|preventDefault={onSubmit}
-      class="w-96 flex flex-col gap-5 p-5"
+      class="w-full flex flex-col gap-5 p-5"
     >
       <div>
         <label class="text-sm {formError.name && 'text-red-500'}"

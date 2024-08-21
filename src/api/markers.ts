@@ -11,22 +11,9 @@ type MarkerType = {
     map: string;
 }
 
-type MarkerForm = {
-    name: string;
-    lat: string;
-    lng: string;
-    description: string;
-    user: string;
-    map: string;
-}
-
 type MarkerFormError = {
     name: boolean;
-    lat: boolean;
-    lng: boolean;
     description: boolean;
-    user: boolean;
-    map: boolean;
 }
 
 async function list(mapId: string): Promise<MarkerType[]> {
