@@ -1,6 +1,4 @@
-<script>
-  import { AuthenticationApi } from "./../../api/authentication.ts";
-  import Button from "./../../components/button.svelte";
+<script lang="ts">
   import { onMount } from "svelte";
   import { pb } from "@/services/pb";
   import { goto } from "$app/navigation";
