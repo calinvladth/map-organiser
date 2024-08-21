@@ -27,9 +27,6 @@
       zoom: zoom,
     });
 
-    // TODO: Handle on click?
-    map.on("click", (event) => console.log("Map clicked: ", event));
-
     map.on("dragend", (event) => {
       const center = event.target.getCenter();
 
@@ -41,7 +38,6 @@
 
     map.on("geosearch/showlocation", (event) => {
       const latLng = [event.location.y, event.location.x];
-      console.log(event.location.y, event.location.x);
       location = latLng;
 
       $page.url.searchParams.set("location", `${latLng[0]},${latLng[1]}`);
@@ -70,7 +66,6 @@
 
   onDestroy(async () => {
     if (map) {
-      console.log("Unloading Leaflet map.");
       map.remove();
     }
   });

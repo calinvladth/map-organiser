@@ -22,7 +22,6 @@ function checkErrors(obj: unknown): boolean {
     let isError = false;
 
     for (const [key, value] of Object.entries(obj)) {
-        console.log({ key, value })
         if (value) {
             isError = true
             break
