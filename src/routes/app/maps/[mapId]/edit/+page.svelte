@@ -31,8 +31,6 @@
   };
 
   onMount(async () => {
-    console.log({ mapId });
-
     map = await MapsApi.listById(mapId);
 
     form.name = map.name;

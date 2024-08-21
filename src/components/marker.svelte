@@ -35,15 +35,23 @@
     });
 
     marker.on("click", () => {
-      $page.url.searchParams.set("activePick", pick.id);
-      goto(
-        replaceKeysInUrl(
-          `${ROUTES.PICKS}?${$page.url.searchParams.toString()}`,
-          {
-            mapId: mapId,
-          }
-        )
-      );
+      const location = $page.url.searchParams.get("location");
+      if (!location) {
+        $page.url.searchParams.set("location", `${pick.lat},${pick.lng}`);
+      }
+
+      if (pick.id) {
+        $page.url.searchParams.set("activePick", pick.id);
+
+        goto(
+          replaceKeysInUrl(
+            `${ROUTES.PICKS}?${$page.url.searchParams.toString()}`,
+            {
+              mapId: mapId,
+            }
+          )
+        );
+      }
     });
 
     marker.on("dragend", (event) => {

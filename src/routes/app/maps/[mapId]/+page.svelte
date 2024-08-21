@@ -70,6 +70,12 @@
   });
 
   function goToPick() {
+    const isLocation = $page.url.searchParams.get("location");
+
+    if (!isLocation) {
+      $page.url.searchParams.set("location", location);
+    }
+
     goto(
       replaceKeysInUrl(`${ROUTES.PICKS}?${$page.url.searchParams.toString()}`, {
         mapId: mapId,

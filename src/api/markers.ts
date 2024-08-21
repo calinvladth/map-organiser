@@ -54,8 +54,13 @@ async function update({ pickId, data, cb }: { pickId: string, data: MarkerType, 
     }
 }
 
-function remove() {
-    return
+async function remove({ pickId, cb }: { pickId: string, cb: () => void }) {
+    try {
+        await pb.collection('markers').delete(pickId)
+        cb()
+    } catch (err) {
+        errorHandler(err)
+    }
 }
 
 export type {

@@ -43,7 +43,10 @@
       }
     }
 
-    pick = await MarkersApi.listById(pickId);
+    if (pickId) {
+      pick = await MarkersApi.listById(pickId);
+    }
+
     form = {
       ...form,
       ...pick,
@@ -59,11 +62,7 @@
 
     const hasError = Validation.checkErrors(formError);
 
-    console.log(formError, form);
-
     if (!hasError) {
-      console.log("PASS");
-
       if (pick?.id) {
         MarkersApi.update({
           pickId: pick.id,
@@ -94,6 +93,15 @@
         },
       });
     }
+  }
+
+  async function onDelete() {
+    await MarkersApi.remove({
+      pickId,
+      cb: () => {
+        goto(replaceKeysInUrl(ROUTES.MAP, { mapId }));
+      },
+    });
   }
 </script>
 
@@ -134,5 +142,9 @@
     </div>
 
     <Button buttonType="submit">Save</Button>
+
+    <p on:click={onDelete} class="text-xs text-red-500 cursor-pointer">
+      Remove pick
+    </p>
   </form>
 </section>
