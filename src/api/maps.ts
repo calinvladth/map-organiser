@@ -42,8 +42,9 @@ async function update({ mapId, data, cb }: { mapId: string, data: MapType, cb: (
     cb()
 }
 
-async function remove(mapId: string) {
+async function remove({ mapId, cb }: { mapId: string, cb: () => void }) {
     await pb.collection('maps').delete(mapId)
+    cb()
 }
 
 export const MapsApi = {

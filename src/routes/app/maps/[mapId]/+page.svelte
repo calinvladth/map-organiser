@@ -20,8 +20,6 @@
   let loaded = false;
   let addPickView = false;
 
-  let params = $page.url.searchParams.toString();
-
   async function getLocation() {
     if ("geolocation" in navigator) {
       await navigator.geolocation.getCurrentPosition((position) => {
@@ -82,47 +80,51 @@
 </script>
 
 <div class="flex flex-col h-full">
-  <div
-    class="w-full border-b border-black cursor-pointer p-5 flex justify-end gap-3"
-  >
-    {#if !map?.isCentered}
+  <div class="w-full border-b border-black p-5 flex justify-between gap-3">
+    <div>
+      <Button onClick={() => goto(ROUTES.MAPS)}>Back</Button>
       <Button
         onClick={() => {
-          addPickView = !addPickView;
-        }}
+          goto(replaceKeysInUrl(ROUTES.MAP_EDIT, { mapId }));
+        }}>Edit map</Button
       >
-        {addPickView ? "Cancel" : "Add map starting point"}
-      </Button>
-      {#if addPickView}
-        <Button onClick={addMapStartingPoint}>Save</Button>
-      {/if}
-    {:else}
-      {#if activePick}
-        <Button
-          onClick={() => {
-            activePick = "";
-            $page.url.searchParams.delete("activePick");
-            goto(`?${$page.url.searchParams.toString()}`);
-          }}>Cancel</Button
-        >
-
-        <Button onClick={goToPick}
-          >Edit pick details {$page.url.searchParams.toString()}</Button
-        >
-      {:else}
+    </div>
+    <div>
+      {#if !map?.isCentered}
         <Button
           onClick={() => {
             addPickView = !addPickView;
-          }}>{addPickView ? "Cancel" : "Add pick"}</Button
+          }}
         >
-      {/if}
+          {addPickView ? "Cancel" : "Add map starting point"}
+        </Button>
+        {#if addPickView}
+          <Button onClick={addMapStartingPoint}>Save</Button>
+        {/if}
+      {:else}
+        {#if activePick}
+          <Button
+            onClick={() => {
+              activePick = "";
+              $page.url.searchParams.delete("activePick");
+              goto(`?${$page.url.searchParams.toString()}`);
+            }}>Cancel</Button
+          >
 
-      {#if addPickView}
-        <Button onClick={goToPick}
-          >Add pick details {$page.url.searchParams.toString()}</Button
-        >
+          <Button onClick={goToPick}>Edit pick details</Button>
+        {:else}
+          <Button
+            onClick={() => {
+              addPickView = !addPickView;
+            }}>{addPickView ? "Cancel" : "Add pick"}</Button
+          >
+        {/if}
+
+        {#if addPickView}
+          <Button onClick={goToPick}>Add pick details</Button>
+        {/if}
       {/if}
-    {/if}
+    </div>
   </div>
 
   <div class="border border-black h-full relative">

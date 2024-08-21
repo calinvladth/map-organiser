@@ -13,15 +13,19 @@
   });
 </script>
 
-<section>
+<section class="w-full h-full">
   <div class="w-full border-b border-black cursor-pointer p-5 flex justify-end">
     <a href={ROUTES.MAPS_CREATE}>
       <Button>Create</Button>
     </a>
   </div>
 
+  <h1 class="text-3xl p-5 border-b border-black">Maps</h1>
+
   {#if maps.length === 0}
-    <p>No maps available</p>
+    <div class="w-full h-full flex items-center justify-center">
+      <p>No maps available</p>
+    </div>
   {/if}
 
   {#each maps as map}

@@ -1,6 +1,5 @@
 <script>
   import { goto } from "$app/navigation";
-  import "@/app.css";
   import { onMount } from "svelte";
   import { pb } from "@/services/pb";
   import { ROUTES } from "@/utils/constants";
@@ -18,8 +17,10 @@
 </script>
 
 {#if loaded}
-  <section>
-    <div class="w-1/2 h-full border border-red-500">
+  <section
+    class="w-full h-full border border-red-500 flex justify-center items-center flex-col"
+  >
+    <div class="w-96">
       <slot></slot>
     </div>
   </section>
