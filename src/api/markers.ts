@@ -1,4 +1,5 @@
 import { pb } from "../services/pb";
+import { errorHandler } from "../utils/alertHandler";
 
 type MarkerType = {
     id?: string;
@@ -16,25 +17,41 @@ type MarkerFormError = {
     description: boolean;
 }
 
-async function list(mapId: string): Promise<MarkerType[]> {
-    const response = await pb.collection('markers').getFullList({
-        filter: `map='${mapId}'`
-    })
-    return response.map(pick => ({ ...pick, location: [pick.lat, pick.lng] }))
+async function list(mapId: string): Promise<MarkerType[] | undefined> {
+    try {
+        const response = await pb.collection('markers').getFullList({
+            filter: `map='${mapId}'`
+        })
+        return response.map(pick => ({ ...pick, location: [pick.lat, pick.lng] }))
+    } catch (err) {
+        errorHandler(err)
+    }
 }
 
-async function listById(pickId: string): Promise<MarkerType> {
-    return await pb.collection('markers').getOne(pickId)
+async function listById(pickId: string): Promise<MarkerType | undefined> {
+    try {
+        return await pb.collection('markers').getOne(pickId)
+    } catch (err) {
+        errorHandler(err)
+    }
 }
 
 async function create({ data, cb }: { data: MarkerType, cb: () => void }) {
-    await pb.collection('markers').create(data)
-    cb()
+    try {
+        await pb.collection('markers').create(data)
+        cb()
+    } catch (err) {
+        errorHandler(err)
+    }
 }
 
 async function update({ pickId, data, cb }: { pickId: string, data: MarkerType, cb: () => void }) {
-    await pb.collection('markers').update(pickId, data)
-    cb()
+    try {
+        await pb.collection('markers').update(pickId, data)
+        cb()
+    } catch (err) {
+        errorHandler(err)
+    }
 }
 
 function remove() {

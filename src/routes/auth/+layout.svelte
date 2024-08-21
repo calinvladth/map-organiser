@@ -17,7 +17,7 @@
 </script>
 
 {#if loaded}
-  <section class="w-full h-full flex justify-center items-center flex-col">
+  <section class="w-full h-screen flex justify-center items-center flex-col">
     <div class="w-96">
       <slot></slot>
     </div>

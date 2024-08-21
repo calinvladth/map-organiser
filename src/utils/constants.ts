@@ -9,7 +9,10 @@ const ROUTES = {
     REGISTER: '/auth/register',
 }
 
+const ALERT_BANNER_DISPLAY = 3000 // in ms
+
 export {
-    ROUTES
+    ROUTES,
+    ALERT_BANNER_DISPLAY
 }
 

@@ -1,4 +1,5 @@
 import { pb } from "../services/pb"
+import { errorHandler, successHandler } from "../utils/alertHandler";
 
 type AccountType = {
     username: string;
@@ -22,13 +23,24 @@ type AccountPasswordFormErrorType = {
     oldPassword: boolean
 }
 
-async function listById(accountId: string): Promise<AccountType> {
-    return await pb.collection('users').getOne(accountId)
+async function listById(accountId: string): Promise<AccountType | undefined> {
+    try {
+        return await pb.collection('users').getOne(accountId)
+    } catch (err) {
+        errorHandler(err)
+    }
+
 }
 
 async function update({ accountId, data, cb }: { accountId: string, data: AccountType, cb: () => void }) {
-    return await pb.collection('users').update(accountId, data)
-    cb()
+    try {
+        await pb.collection('users').update(accountId, data)
+        successHandler('Account updated')
+        cb()
+    } catch (err) {
+        errorHandler(err)
+    }
+
 }
 
 export type {

@@ -1,4 +1,5 @@
 import { pb } from "../services/pb"
+import { errorHandler } from "../utils/alertHandler";
 
 type MapType = {
     id: string;
@@ -18,33 +19,53 @@ type MapsFormError = {
     user: boolean;
 }
 
-async function list(userId: string): Promise<MapType[]> {
-    return await pb.collection('maps').getFullList({
-        filter: `user='${userId}'`
-    })
+async function list(userId: string): Promise<MapType[] | undefined> {
+    try {
+        return await pb.collection('maps').getFullList({
+            filter: `user='${userId}'`
+        })
+    } catch (err) {
+        errorHandler(err)
+    }
 }
 
-async function listById(id: string): Promise<MapType> {
-    let response = await pb.collection('maps').getOne(id)
+async function listById(id: string): Promise<MapType | undefined> {
+    try {
+        let response = await pb.collection('maps').getOne(id)
 
-    response.isCentered = !!(response.lat && response.lng)
+        response.isCentered = !!(response.lat && response.lng)
 
-    return response
+        return response
+    } catch (err) {
+        errorHandler(err)
+    }
 }
 
 async function create({ data, cb }: { data: MapsForm, cb: () => void }) {
-    await pb.collection('maps').create(data)
-    cb()
+    try {
+        await pb.collection('maps').create(data)
+        cb()
+    } catch (err) {
+        errorHandler(err)
+    }
 }
 
 async function update({ mapId, data, cb }: { mapId: string, data: MapType, cb: () => void }) {
-    await pb.collection('maps').update(mapId, data)
-    cb()
+    try {
+        await pb.collection('maps').update(mapId, data)
+        cb()
+    } catch (err) {
+        errorHandler(err)
+    }
 }
 
 async function remove({ mapId, cb }: { mapId: string, cb: () => void }) {
-    await pb.collection('maps').delete(mapId)
-    cb()
+    try {
+        await pb.collection('maps').delete(mapId)
+        cb()
+    } catch (err) {
+        errorHandler(err)
+    }
 }
 
 export const MapsApi = {

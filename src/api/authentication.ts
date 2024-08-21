@@ -1,4 +1,5 @@
 import { pb } from "../services/pb"
+import { errorHandler } from "../utils/alertHandler";
 
 type AuthenticationForm = {
     email: string;
@@ -11,19 +12,34 @@ type AuthenticationFormError = {
 }
 
 async function login({ data, cb }: { data: AuthenticationForm, cb: () => void }) {
-    await pb.collection('users').authWithPassword(data.email, data.password)
-    cb()
+    try {
+        await pb.collection('users').authWithPassword(data.email, data.password)
+        cb()
+    } catch (err) {
+        errorHandler(err)
+    }
+
 }
 
 async function register({ data, cb }: { data: AuthenticationForm, cb: () => void }) {
-    const record = await pb.collection('users').create({ ...data, passwordConfirm: data.password });
-    await pb.collection('users').authWithPassword(data.email, data.password)
-    cb()
+    try {
+        await pb.collection('users').create({ ...data, passwordConfirm: data.password });
+        await pb.collection('users').authWithPassword(data.email, data.password)
+        cb()
+    } catch (err) {
+        errorHandler(err)
+    }
+
 }
 
 async function logout(cb: () => void) {
-    pb.authStore.clear()
-    cb()
+    try {
+        pb.authStore.clear()
+        cb()
+    } catch (err) {
+        errorHandler(err)
+    }
+
 }
 
 export type {
