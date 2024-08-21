@@ -13,6 +13,7 @@
   import { pb } from "@/services/pb";
   import { ROUTES } from "@/utils/constants";
   import { onMount } from "svelte";
+  import replaceKeysInUrl from "../../../../../utils/replaceKeysInURL";
 
   let loaded = false;
   let map: MapType;
@@ -68,10 +69,19 @@
 </script>
 
 {#if loaded}
-  <section class="w-full h-full flex items-center justify-center flex-col">
-    <h1 class="text-3xl mb-5">{map.name}</h1>
+  <section class="w-full">
+    <div class="w-full border-b border-black p-5 flex justify-between gap-3">
+      <Button onClick={() => goto(replaceKeysInUrl(ROUTES.MAP, { mapId }))}
+        >Back</Button
+      >
+    </div>
 
-    <form on:submit|preventDefault={onSubmit} class="w-96 flex flex-col gap-5">
+    <h1 class="text-3xl p-5 border-b border-black">{map.name}</h1>
+
+    <form
+      on:submit|preventDefault={onSubmit}
+      class="w-96 flex flex-col gap-5 p-5"
+    >
       <div>
         <label class="text-sm {formError.name && 'text-red-500'}"
           >Map name</label
