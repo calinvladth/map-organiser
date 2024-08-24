@@ -4,8 +4,9 @@
   import { goto } from "$app/navigation";
   import { page } from "$app/stores";
   import Search from "./search.svelte";
+  import { MAP_ZOOM } from "../utils/constants";
 
-  export let zoom = 13;
+  export let zoom = MAP_ZOOM;
   export let location;
   export let addPickView;
   export let picks = [];

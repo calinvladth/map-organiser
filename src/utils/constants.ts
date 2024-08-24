@@ -11,8 +11,11 @@ const ROUTES = {
 
 const ALERT_BANNER_DISPLAY = 3000 // in ms
 
+const MAP_ZOOM = 13
+
 export {
     ROUTES,
-    ALERT_BANNER_DISPLAY
+    ALERT_BANNER_DISPLAY,
+    MAP_ZOOM
 }
 

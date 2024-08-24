@@ -7,9 +7,9 @@
   import { MapsApi, type MapType } from "@/api/maps";
   import { MarkersApi, type MarkerType } from "@/api/markers";
   import replaceKeysInUrl from "../../../../utils/replaceKeysInURL";
-  import { ROUTES } from "../../../../utils/constants";
+  import { MAP_ZOOM, ROUTES } from "../../../../utils/constants";
 
-  const zoom = $page.url.searchParams.get("zoom") || 10;
+  const zoom = $page.url.searchParams.get("zoom") || MAP_ZOOM;
   const mapId = $page.params.mapId;
 
   let map: MapType;
