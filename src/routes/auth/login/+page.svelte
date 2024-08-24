@@ -8,6 +8,7 @@
   import Button from "@/components/button.svelte";
   import { ROUTES } from "../../../utils/constants";
   import { Validation } from "../../../utils/validation";
+  import InputGroup from "../../../components/input-group.svelte";
 
   const form: AuthenticationForm = {
     email: "",
@@ -21,6 +22,7 @@
   };
 
   async function onSubmit() {
+    console.log({ form, formError });
     formError.email = Validation.checkText(form.email);
     formError.password = Validation.checkText(form.password);
 
@@ -40,29 +42,19 @@
 <h1 class="text-3xl text-center mb-5">Login</h1>
 
 <form on:submit|preventDefault={onSubmit} class="flex flex-col gap-5">
-  <div>
-    <label class="text-sm {formError.email && 'text-red-500'}">Email</label>
-    <input
-      type="email"
-      bind:value={form.email}
-      class="text-sm box-border appearance-none w-full py-2 px-3 text-gray-700 leading-tight border {formError.email
-        ? 'border-red-500'
-        : 'border-black'} focus:outline-none focus:border-blue-700"
-    />
-  </div>
+  <InputGroup
+    type="email"
+    bind:value={form.email}
+    isError={formError.email}
+    labelName="Email"
+  />
 
-  <div>
-    <label class="text-sm {formError.password && 'text-red-500'}"
-      >Password</label
-    >
-    <input
-      type="password"
-      bind:value={form.password}
-      class="text-sm box-border appearance-none w-full py-2 px-3 text-gray-700 leading-tight border {formError.password
-        ? 'border-red-500'
-        : 'border-black'} focus:outline-none focus:border-blue-700"
-    />
-  </div>
+  <InputGroup
+    type="password"
+    bind:value={form.password}
+    isError={formError.password}
+    labelName="Password"
+  />
 
   <p class="text-xs">
     Don't have an account? <a href={ROUTES.REGISTER} class="text-blue-500"
@@ -70,5 +62,5 @@
     >
   </p>
 
-  <Button buttonType="submit">Submit</Button>
+  <Button type="submit">Submit</Button>
 </form>

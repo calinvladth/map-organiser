@@ -13,6 +13,7 @@
   } from "../../../api/account";
   import { onMount } from "svelte";
   import { pb } from "../../../services/pb";
+  import InputGroup from "../../../components/input-group.svelte";
 
   const accountId = pb.authStore.model.id;
   let account: AccountType;
@@ -73,7 +74,7 @@
 
 <section class="w-full h-full overflow-auto">
   <div class="w-full border-b border-black p-5 flex justify-between gap-3">
-    <Button onClick={() => goto(ROUTES.MAPS)}>Back</Button>
+    <Button on:click={() => goto(ROUTES.MAPS)}>Back</Button>
   </div>
 
   <h1 class="text-3xl p-5 border-b border-black">Account</h1>
@@ -82,29 +83,21 @@
     on:submit|preventDefault={onSubmit}
     class="w-full flex flex-col gap-5 p-5"
   >
-    <div>
-      <label class="text-sm {formError.name && 'text-red-500'}">Username</label>
-      <input
-        type="text"
-        bind:value={form.username}
-        class="text-sm box-border appearance-none w-full py-2 px-3 text-gray-700 leading-tight border {formError.username
-          ? 'border-red-500'
-          : 'border-black'} focus:outline-none focus:border-blue-700"
-      />
-    </div>
+    <InputGroup
+      type="text"
+      bind:value={form.username}
+      isError={formError.username}
+      labelName="Username"
+    />
 
-    <div>
-      <label class="text-sm {formError.name && 'text-red-500'}">Email</label>
-      <input
-        type="email"
-        bind:value={form.email}
-        class="text-sm box-border appearance-none w-full py-2 px-3 text-gray-700 leading-tight border {formError.email
-          ? 'border-red-500'
-          : 'border-black'} focus:outline-none focus:border-blue-700"
-      />
-    </div>
+    <InputGroup
+      type="email"
+      bind:value={form.email}
+      isError={formError.email}
+      labelName="Email"
+    />
 
-    <Button buttonType="submit">Save</Button>
+    <Button type="submit">Save</Button>
   </form>
 
   <h1 class="text-3xl p-5 border-b border-black mt-5">Change Password</h1>
@@ -113,47 +106,28 @@
     on:submit|preventDefault={onPasswordChange}
     class="w-full flex flex-col gap-5 p-5"
   >
-    <div>
-      <label class="text-sm {formPasswordError.oldPassword && 'text-red-500'}"
-        >Old password</label
-      >
-      <input
-        type="password"
-        bind:value={formPassword.oldPassword}
-        class="text-sm box-border appearance-none w-full py-2 px-3 text-gray-700 leading-tight border {formPasswordError.oldPassword
-          ? 'border-red-500'
-          : 'border-black'} focus:outline-none focus:border-blue-700"
-      />
-    </div>
+    <InputGroup
+      type="password"
+      bind:value={formPassword.oldPassword}
+      isError={formPasswordError.oldPassword}
+      labelName="Old password"
+    />
 
-    <div>
-      <label class="text-sm {formPasswordError.password && 'text-red-500'}"
-        >New password</label
-      >
-      <input
-        type="password"
-        bind:value={formPassword.password}
-        class="text-sm box-border appearance-none w-full py-2 px-3 text-gray-700 leading-tight border {formPasswordError.password
-          ? 'border-red-500'
-          : 'border-black'} focus:outline-none focus:border-blue-700"
-      />
-    </div>
+    <InputGroup
+      type="password"
+      bind:value={formPassword.password}
+      isError={formPasswordError.password}
+      labelName="New password"
+    />
 
-    <div>
-      <label
-        class="text-sm {formPasswordError.passwordConfirm && 'text-red-500'}"
-        >Repeat new password</label
-      >
-      <input
-        type="password"
-        bind:value={formPassword.passwordConfirm}
-        class="text-sm box-border appearance-none w-full py-2 px-3 text-gray-700 leading-tight border {formPasswordError.passwordConfirm
-          ? 'border-red-500'
-          : 'border-black'} focus:outline-none focus:border-blue-700"
-      />
-    </div>
+    <InputGroup
+      type="password"
+      bind:value={formPassword.passwordConfirm}
+      isError={formPasswordError.passwordConfirm}
+      labelName="Repeat new password"
+    />
 
-    <Button buttonType="submit">Save</Button>
+    <Button type="submit">Save</Button>
   </form>
 
   <p

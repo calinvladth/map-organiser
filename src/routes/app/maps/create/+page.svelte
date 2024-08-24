@@ -5,6 +5,7 @@
   import Button from "@/components/button.svelte";
   import { pb } from "@/services/pb";
   import { ROUTES } from "../../../../utils/constants";
+  import InputGroup from "../../../../components/input-group.svelte";
 
   const form: MapsForm = {
     name: "",
@@ -36,7 +37,7 @@
 
 <section class="w-full">
   <div class="w-full border-b border-black p-5 flex justify-between gap-3">
-    <Button onClick={() => goto(ROUTES.MAPS)}>Back</Button>
+    <Button on:click={() => goto(ROUTES.MAPS)}>Back</Button>
   </div>
 
   <h1 class="text-3xl p-5 border-b border-black">Create map</h1>
@@ -45,17 +46,13 @@
     on:submit|preventDefault={onSubmit}
     class="w-full flex flex-col gap-5 p-5"
   >
-    <div>
-      <label class="text-sm {formError.name && 'text-red-500'}">Map name</label>
-      <input
-        type="text"
-        bind:value={form.name}
-        class="text-sm box-border appearance-none w-full py-2 px-3 text-gray-700 leading-tight border {formError.name
-          ? 'border-red-500'
-          : 'border-black'} focus:outline-none focus:border-blue-700"
-      />
-    </div>
+    <InputGroup
+      type="text"
+      bind:value={form.name}
+      isError={formError.name}
+      labelName="Map Name"
+    />
 
-    <Button buttonType="submit">Save</Button>
+    <Button type="submit">Save</Button>
   </form>
 </section>

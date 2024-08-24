@@ -83,9 +83,9 @@
 <div class="flex flex-col h-full">
   <div class="w-full border-b border-black p-5 flex justify-between gap-3">
     <div>
-      <Button onClick={() => goto(ROUTES.MAPS)}>Back</Button>
+      <Button on:click={() => goto(ROUTES.MAPS)}>Back</Button>
       <Button
-        onClick={() => {
+        on:click={() => {
           goto(replaceKeysInUrl(ROUTES.MAP_EDIT, { mapId }));
         }}>Edit map</Button
       >
@@ -93,36 +93,36 @@
     <div>
       {#if !map?.isCentered}
         <Button
-          onClick={() => {
+          on:click={() => {
             addPickView = !addPickView;
           }}
         >
           {addPickView ? "Cancel" : "Add map starting point"}
         </Button>
         {#if addPickView}
-          <Button onClick={addMapStartingPoint}>Save</Button>
+          <Button on:click={addMapStartingPoint}>Save</Button>
         {/if}
       {:else}
         {#if activePick}
           <Button
-            onClick={() => {
+            on:click={() => {
               activePick = "";
               $page.url.searchParams.delete("activePick");
               goto(`?${$page.url.searchParams.toString()}`);
             }}>Cancel</Button
           >
 
-          <Button onClick={goToPick}>Edit pick details</Button>
+          <Button on:click={goToPick}>Edit pick details</Button>
         {:else}
           <Button
-            onClick={() => {
+            on:click={() => {
               addPickView = !addPickView;
             }}>{addPickView ? "Cancel" : "Add pick"}</Button
           >
         {/if}
 
         {#if addPickView}
-          <Button onClick={goToPick}>Add pick details</Button>
+          <Button on:click={goToPick}>Add pick details</Button>
         {/if}
       {/if}
     </div>

@@ -14,6 +14,7 @@
   import { ROUTES } from "@/utils/constants";
   import { onMount } from "svelte";
   import replaceKeysInUrl from "../../../../../utils/replaceKeysInURL";
+  import InputGroup from "../../../../../components/input-group.svelte";
 
   let loaded = false;
   let map: MapType;
@@ -69,7 +70,7 @@
 {#if loaded}
   <section class="w-full">
     <div class="w-full border-b border-black p-5 flex justify-between gap-3">
-      <Button onClick={() => goto(replaceKeysInUrl(ROUTES.MAP, { mapId }))}
+      <Button on:click={() => goto(replaceKeysInUrl(ROUTES.MAP, { mapId }))}
         >Back</Button
       >
     </div>
@@ -80,20 +81,14 @@
       on:submit|preventDefault={onSubmit}
       class="w-full flex flex-col gap-5 p-5"
     >
-      <div>
-        <label class="text-sm {formError.name && 'text-red-500'}"
-          >Map name</label
-        >
-        <input
-          type="text"
-          bind:value={form.name}
-          class="text-sm box-border appearance-none w-full py-2 px-3 text-gray-700 leading-tight border {formError.name
-            ? 'border-red-500'
-            : 'border-black'} focus:outline-none focus:border-blue-700"
-        />
-      </div>
+      <InputGroup
+        type="text"
+        bind:value={form.name}
+        isError={formError.name}
+        labelName="Map Name"
+      />
 
-      <Button buttonType="submit">Save</Button>
+      <Button type="submit">Save</Button>
 
       <p on:click={onDelete} class="text-xs text-red-500 cursor-pointer">
         Remove map

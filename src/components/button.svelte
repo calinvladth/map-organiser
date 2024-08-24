@@ -1,11 +1,16 @@
 <script lang="ts">
-  export let onClick = () => {};
-  export let buttonType = "button";
+  import { createEventDispatcher } from "svelte";
+
+  const dispatch = createEventDispatcher();
+
+  function handleClick(event: Event) {
+    dispatch("click", event);
+  }
 </script>
 
 <button
-  on:click={onClick}
-  type={buttonType}
+  on:click={handleClick}
+  {...$$restProps}
   class="border border-black px-5 py-2 text-xs"
 >
   <slot></slot>
