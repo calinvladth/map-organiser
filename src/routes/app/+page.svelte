@@ -6,6 +6,7 @@
   import replaceKeysInUrl from "../../utils/replaceKeysInURL";
   import { ROUTES } from "../../utils/constants";
   import { goto } from "$app/navigation";
+  import Meta from "../../components/meta.svelte";
 
   let maps: MapType[] = [];
 
@@ -13,6 +14,8 @@
     maps = await MapsApi.list(pb.authStore.model.id);
   });
 </script>
+
+<Meta pageTitle="All maps" />
 
 <section class="w-full h-full">
   <div class="w-full border-b border-black cursor-pointer p-5 flex justify-end">

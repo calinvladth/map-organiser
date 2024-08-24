@@ -7,6 +7,7 @@
   } from "../../../api/authentication";
   import Button from "../../../components/button.svelte";
   import InputGroup from "../../../components/input-group.svelte";
+  import Meta from "../../../components/meta.svelte";
   import { ROUTES } from "../../../utils/constants";
   import { Validation } from "../../../utils/validation";
 
@@ -36,6 +37,8 @@
     }
   }
 </script>
+
+<Meta pageTitle="Register" />
 
 <div>
   <h1 class="text-3xl text-center mb-5">Register</h1>

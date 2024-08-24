@@ -8,6 +8,8 @@
   import { MarkersApi, type MarkerType } from "@/api/markers";
   import replaceKeysInUrl from "../../../../utils/replaceKeysInURL";
   import { MAP_ZOOM, ROUTES } from "../../../../utils/constants";
+  import Meta from "../../../../components/meta.svelte";
+  import Loading from "../../../../components/loading.svelte";
 
   const zoom = $page.url.searchParams.get("zoom") || MAP_ZOOM;
   const mapId = $page.params.mapId;
@@ -80,59 +82,72 @@
   }
 </script>
 
-<div class="flex flex-col h-full">
-  <div class="w-full border-b border-black p-5 flex justify-between gap-3">
-    <div>
-      <Button on:click={() => goto(ROUTES.MAPS)}>Back</Button>
-      <Button
-        on:click={() => {
-          goto(replaceKeysInUrl(ROUTES.MAP_EDIT, { mapId }));
-        }}>Edit map</Button
-      >
-    </div>
-    <div>
-      {#if !map?.isCentered}
+{#if loaded}
+  <Meta pageTitle={map?.name} />
+
+  <div class="flex flex-col h-full">
+    <div class="w-full border-b border-black p-5 flex justify-between gap-3">
+      <div>
+        <Button on:click={() => goto(ROUTES.MAPS)}>Back</Button>
         <Button
           on:click={() => {
-            addPickView = !addPickView;
-          }}
+            goto(replaceKeysInUrl(ROUTES.MAP_EDIT, { mapId }));
+          }}>Edit map</Button
         >
-          {addPickView ? "Cancel" : "Add map starting point"}
-        </Button>
-        {#if addPickView}
-          <Button on:click={addMapStartingPoint}>Save</Button>
-        {/if}
-      {:else}
-        {#if activePick}
-          <Button
-            on:click={() => {
-              activePick = "";
-              $page.url.searchParams.delete("activePick");
-              goto(`?${$page.url.searchParams.toString()}`);
-            }}>Cancel</Button
-          >
-
-          <Button on:click={goToPick}>Edit pick details</Button>
-        {:else}
+      </div>
+      <div>
+        {#if !map?.isCentered}
           <Button
             on:click={() => {
               addPickView = !addPickView;
-            }}>{addPickView ? "Cancel" : "Add pick"}</Button
+            }}
           >
-        {/if}
+            {addPickView ? "Cancel" : "Add map starting point"}
+          </Button>
+          {#if addPickView}
+            <Button on:click={addMapStartingPoint}>Save</Button>
+          {/if}
+        {:else}
+          {#if activePick}
+            <Button
+              on:click={() => {
+                activePick = "";
+                $page.url.searchParams.delete("activePick");
+                goto(`?${$page.url.searchParams.toString()}`);
+              }}>Cancel</Button
+            >
 
-        {#if addPickView}
-          <Button on:click={goToPick}>Add pick details</Button>
+            <Button on:click={goToPick}>Edit pick details</Button>
+          {:else}
+            <Button
+              on:click={() => {
+                addPickView = !addPickView;
+              }}>{addPickView ? "Cancel" : "Add pick"}</Button
+            >
+          {/if}
+
+          {#if addPickView}
+            <Button on:click={goToPick}>Add pick details</Button>
+          {/if}
         {/if}
+      </div>
+    </div>
+
+    <div class=" h-full relative">
+      {#if location}
+        <Map
+          {zoom}
+          {mapId}
+          bind:location
+          bind:activePick
+          {addPickView}
+          {picks}
+        />
+      {:else}
+        <p class="p-5">Map is loading</p>
       {/if}
     </div>
   </div>
-
-  <div class=" h-full relative">
-    {#if loaded && location}
-      <Map {zoom} {mapId} bind:location bind:activePick {addPickView} {picks} />
-    {:else}
-      <p>Map is loading</p>
-    {/if}
-  </div>
-</div>
+{:else}
+  <Loading />
+{/if}

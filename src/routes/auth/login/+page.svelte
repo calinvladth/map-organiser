@@ -9,6 +9,7 @@
   import { ROUTES } from "../../../utils/constants";
   import { Validation } from "../../../utils/validation";
   import InputGroup from "../../../components/input-group.svelte";
+  import Meta from "../../../components/meta.svelte";
 
   const form: AuthenticationForm = {
     email: "",
@@ -38,6 +39,8 @@
     }
   }
 </script>
+
+<Meta pageTitle="Login" />
 
 <h1 class="text-3xl text-center mb-5">Login</h1>
 

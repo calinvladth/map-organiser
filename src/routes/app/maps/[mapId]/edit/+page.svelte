@@ -15,6 +15,7 @@
   import { onMount } from "svelte";
   import replaceKeysInUrl from "../../../../../utils/replaceKeysInURL";
   import InputGroup from "../../../../../components/input-group.svelte";
+  import Meta from "../../../../../components/meta.svelte";
 
   let loaded = false;
   let map: MapType;
@@ -68,6 +69,8 @@
 </script>
 
 {#if loaded}
+  <Meta pageTitle="Edit {map?.name}" />
+
   <section class="w-full">
     <div class="w-full border-b border-black p-5 flex justify-between gap-3">
       <Button on:click={() => goto(replaceKeysInUrl(ROUTES.MAP, { mapId }))}

@@ -6,6 +6,7 @@
   import { pb } from "@/services/pb";
   import { ROUTES } from "../../../../utils/constants";
   import InputGroup from "../../../../components/input-group.svelte";
+  import Meta from "../../../../components/meta.svelte";
 
   const form: MapsForm = {
     name: "",
@@ -34,6 +35,8 @@
     }
   }
 </script>
+
+<Meta pageTitle="Create Map" />
 
 <section class="w-full">
   <div class="w-full border-b border-black p-5 flex justify-between gap-3">

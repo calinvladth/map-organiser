@@ -14,7 +14,10 @@
   import { ROUTES } from "../../../../../utils/constants";
   import { Validation } from "../../../../../utils/validation";
   import InputGroup from "../../../../../components/input-group.svelte";
+  import Meta from "../../../../../components/meta.svelte";
+  import Loading from "../../../../../components/loading.svelte";
 
+  let loaded = false;
   let pick: MarkerType;
 
   let location = $page.url.searchParams.get("location");
@@ -55,6 +58,7 @@
       lat: location[0],
       lng: location[1],
     };
+    loaded = true;
   });
 
   async function onSubmit() {
@@ -106,38 +110,44 @@
   }
 </script>
 
-<section class="w-full">
-  <div class="w-full border-b border-black p-5 flex justify-between gap-3">
-    <Button on:click={() => window.history.back()}>Back</Button>
-  </div>
+{#if loaded}
+  <Meta pageTitle={pick?.id ? `Edit ${pick?.name}` : "Add Marker"} />
 
-  <h1 class="text-3xl p-5 border-b border-black">
-    {pick?.id ? "Edit marker" : "Add marker"}
-  </h1>
+  <section class="w-full">
+    <div class="w-full border-b border-black p-5 flex justify-between gap-3">
+      <Button on:click={() => window.history.back()}>Back</Button>
+    </div>
 
-  <form
-    on:submit|preventDefault={onSubmit}
-    class="w-full flex flex-col gap-5 p-5"
-  >
-    <InputGroup
-      type="text"
-      bind:value={form.name}
-      isError={formError.name}
-      labelName="Name"
-    />
+    <h1 class="text-3xl p-5 border-b border-black">
+      {pick?.id ? `Edit ${pick?.name}` : "Add marker"}
+    </h1>
 
-    <InputGroup
-      type="text"
-      bind:value={form.description}
-      isError={formError.description}
-      labelName="Description"
-      isTextArea
-    />
+    <form
+      on:submit|preventDefault={onSubmit}
+      class="w-full flex flex-col gap-5 p-5"
+    >
+      <InputGroup
+        type="text"
+        bind:value={form.name}
+        isError={formError.name}
+        labelName="Name"
+      />
 
-    <Button type="submit">Save</Button>
+      <InputGroup
+        type="text"
+        bind:value={form.description}
+        isError={formError.description}
+        labelName="Description"
+        isTextArea
+      />
 
-    <p on:click={onDelete} class="text-xs text-red-500 cursor-pointer">
-      Remove pick
-    </p>
-  </form>
-</section>
+      <Button type="submit">Save</Button>
+
+      <p on:click={onDelete} class="text-xs text-red-500 cursor-pointer">
+        Remove pick
+      </p>
+    </form>
+  </section>
+{:else}
+  <Loading />
+{/if}
