@@ -1,19 +1,18 @@
 <script lang="ts">
-  import { AuthenticationApi } from "./../../../api/authentication.ts";
-  import { AccountApi } from "./../../../api/account.ts";
-  import { Validation } from "./../../../utils/validation";
-  import { goto } from "$app/navigation";
-  import Button from "../../../components/button.svelte";
-  import { ROUTES } from "../../../utils/constants";
-  import type {
-    AccountFormErrorType,
-    AccountType,
-    AccountPasswordType,
-    AccountPasswordFormErrorType,
-  } from "../../../api/account";
   import { onMount } from "svelte";
-  import { pb } from "../../../services/pb";
+  import Button from "../../../components/button.svelte";
   import InputGroup from "../../../components/input-group.svelte";
+  import { pb } from "../../../services/pb";
+  import { ROUTES } from "../../../utils/constants";
+  import { Validation } from "../../../utils/validation";
+  import {
+    type AccountType,
+    type AccountFormErrorType,
+    type AccountPasswordType,
+    type AccountPasswordFormErrorType,
+    AccountApi,
+  } from "../../../api/account";
+  import { AuthenticationApi } from "../../../api/authentication";
 
   const accountId = pb.authStore.model.id;
   let account: AccountType;
