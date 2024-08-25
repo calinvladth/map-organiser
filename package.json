@@ -1,7 +1,9 @@
 {
   "name": "maps",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "private": true,
+  "author": "Calin Vlad <calinvladth@icloud.com> (https://calinvladth.com)",
+  "license": "MIT",
   "scripts": {
     "start": "vite dev",
     "build": "vite build",

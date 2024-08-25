@@ -1,38 +1,44 @@
-# create-svelte
+## About this project
+This is a basic project that let's you manage things on maps. It allows you to create multiple maps and grow each map however you want with multiple locations.
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
+You can use this project in any way you want, but to be more specific, that's what I'm thinking about: 
+- clone it and make it work for your specific use case
+- contribute to it, leave a pr and I will get to it
 
-## Creating a project
+You can check [IMPROVEMENT_IDEAS](/IMPROVEMENT_IDEAS.md) and contribute to it by checking some boxes or by suggesting other improvements.
 
-If you're seeing this, you've probably already done this step. Congrats!
+## What is this project
+I started it because I wanted to do something with maps, try sveltekit and some idea of open source.\ 
+Because there isn't much logic for server, I user pocketbase.\ 
+To give this project a meaning, I thought it would be cool to share a bit of my experience through it. Here, you can see a bit of my coding style and my way of thinking, but i'm open to see other opinions as well. 
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+## Steps to run the project
 
-# create a new project in my-app
-npm create svelte@latest my-app
+From root directory start the client view
+
+```
+$ yarn install
+$ yarn start
 ```
 
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+From ./pb, start the server
+```
+$ cd pb/
+$ ./pocketbase serve
 ```
 
-## Building
+## Resources for this project
+Client view docs
+- [SvelteKit](https://kit.svelte.dev/docs/introduction) 
+- [Tailwind cheat sheet](https://www.creative-tim.com/twcomponents/cheatsheet/)
+- [Leaflet](https://leafletjs.com/)
+- [Leaflet Plugins](https://leafletjs.com/plugins.html)
+- [Typescript](https://www.typescriptlang.org/docs/)
 
-To create a production version of your app:
+"Server" docs
+- [Pocketbase](https://pocketbase.io/docs/)
 
-```bash
-npm run build
-```
 
-You can preview the production build with `npm run preview`.
+## Building and deploy
+-  Read the docs from the provided resources
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
