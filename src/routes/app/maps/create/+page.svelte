@@ -7,6 +7,7 @@
   import { ROUTES } from "../../../../utils/constants";
   import InputGroup from "../../../../components/input-group.svelte";
   import Meta from "../../../../components/meta.svelte";
+  import {alertSuccess} from "../../../../stores/alerts";
 
   const form: MapsForm = {
     name: "",
@@ -33,6 +34,7 @@
         },
       });
     }
+    alertSuccess.set('Map `'+ form.name +'` created.');
   }
 </script>
 
@@ -53,9 +55,9 @@
       type="text"
       bind:value={form.name}
       isError={formError.name}
-      labelName="Map Name"
+      labelName="Map name"
     />
 
-    <Button type="submit">Save</Button>
+    <Button type="submit">Create</Button>
   </form>
 </section>
