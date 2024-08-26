@@ -10,7 +10,7 @@
 
 {#if successMessage}
   <div
-    class="fixed right-5 top-5 border border-black bg-green-500 text-white py-3 px-6"
+    class="fixed right-5 top-5 border border-green-600 bg-green-500 text-white py-3 px-6"
   >
     {successMessage}
   </div>
