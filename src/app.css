@@ -8,3 +8,76 @@ a,
 u {
   text-decoration: none;
 }
+
+.navbar {
+  a {
+    -webkit-transition: 300ms;
+    -moz-transition: 300ms;
+    -ms-transition: 300ms;
+    -o-transition: 300ms;
+    transition: 300ms;
+
+    &:before {
+      left: 1rem;
+      content: "> ";
+      position: absolute;
+      -webkit-transition: 300ms;
+      -moz-transition: 300ms;
+      -ms-transition: 300ms;
+      -o-transition: 300ms;
+      transition: 300ms;
+      opacity: 0;
+    }
+
+    &:hover {
+      padding-left: 2rem;
+
+      &:before {
+        left: 1.25rem;
+        opacity: 1;
+      }
+    }
+  }
+}
+
+.leaflet-touch .leaflet-control-layers, .leaflet-touch .leaflet-bar {
+  border: 1px solid black;
+
+  a {
+    -webkit-transition: 300ms;
+    -moz-transition: 300ms;
+    -ms-transition: 300ms;
+    -o-transition: 300ms;
+    transition: 300ms;
+  }
+}
+
+.leaflet-bar a:hover, .leaflet-bar a:focus {
+  background-color: black;
+  color: white;
+}
+
+.leaflet-control-geosearch {
+  &.active {
+    a {
+      background-color: black;
+
+      &:before {
+        border-top: 2px solid white !important;
+      }
+      &:after {
+        border: 2px solid white !important;
+      }
+    }
+  }
+  a {
+    &:hover {
+      &:before {
+        border-top: 2px solid white !important;
+      }
+      &:after {
+        border: 2px solid white !important;
+      }
+    }
+  }
+}

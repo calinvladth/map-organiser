@@ -11,7 +11,7 @@
 <button
   on:click={handleClick}
   {...$$restProps}
-  class="border border-black px-5 py-2 text-xs"
+  class="border border-black px-5 py-2 rounded text-xs hover:bg-black hover:text-white duration-300"
 >
   <slot></slot>
 </button>
