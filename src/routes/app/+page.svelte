@@ -22,11 +22,11 @@
     <Button on:click={() => goto(ROUTES.MAPS_CREATE)}>Create</Button>
   </div>
 
-  <h1 class="text-3xl p-5 border-b border-black">Maps</h1>
+  <h1 class="text-3xl p-5 border-b border-black">Maps{@html maps.length > 0 ? " <small>(" + maps.length + ")</small>": ""}</h1>
 
   {#if maps.length === 0}
     <div class="w-full h-full flex items-center justify-center">
-      <p>No maps available</p>
+      <p><a href="{ROUTES.MAPS_CREATE}" class="underline">Create your first map</a></p>
     </div>
   {/if}
 
