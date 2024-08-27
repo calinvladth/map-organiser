@@ -7,7 +7,7 @@
   import { ROUTES } from "../../../../utils/constants";
   import InputGroup from "../../../../components/input-group.svelte";
   import Meta from "../../../../components/meta.svelte";
-  import {alertSuccess} from "../../../../stores/alerts";
+  import {successHandler} from "../../../../utils/alertHandler";
 
   const form: MapsForm = {
     name: "",
@@ -34,7 +34,7 @@
         },
       });
     }
-    alertSuccess.set('Map `'+ form.name +'` created.');
+    successHandler('Map `'+ form.name +'` created.');
   }
 </script>
 
