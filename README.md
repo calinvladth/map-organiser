@@ -22,6 +22,10 @@ $ yarn start
 ```
 
 From ./pb, start the database server
+
+Important: 
+* You need to download pocketbase based on your system
+* Extract the pocketbase file to ./pb
 ```
 $ cd pb/
 $ ./pocketbase serve
