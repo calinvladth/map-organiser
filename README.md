@@ -9,7 +9,7 @@ You can check [IMPROVEMENT_IDEAS](/IMPROVEMENT_IDEAS.md) and contribute to it by
 
 ## What is this project
 I started it because I wanted to do something with maps, try sveltekit and some idea of open source.\ 
-Because there isn't much logic for server, I user pocketbase.\ 
+Because there isn't much logic for server, I use pocketbase.\ 
 To give this project a meaning, I thought it would be cool to share a bit of my experience through it. Here, you can see a bit of my coding style and my way of thinking, but i'm open to see other opinions as well. 
 
 ## Steps to run the project
@@ -21,7 +21,7 @@ $ yarn install
 $ yarn start
 ```
 
-From ./pb, start the server
+From ./pb, start the database server
 ```
 $ cd pb/
 $ ./pocketbase serve

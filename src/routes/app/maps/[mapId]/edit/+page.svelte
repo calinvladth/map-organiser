@@ -88,7 +88,7 @@
         type="text"
         bind:value={form.name}
         isError={formError.name}
-        labelName="Map Name"
+        labelName="Map name"
       />
 
       <Button type="submit">Save</Button>

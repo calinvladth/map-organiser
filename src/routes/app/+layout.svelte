@@ -32,7 +32,7 @@
           {Array.from(account.username)[0]}{Array.from(account.username)[1]}
         </p>
       </div>
-      <nav class="w-full flex flex-col border-t border-black mt-5">
+      <nav class="w-full flex flex-col border-t border-black mt-5 navbar">
         <a href={ROUTES.MAPS} class="border-b border-black p-5">Maps</a>
         <a href={ROUTES.ACCOUNT} class="border-b border-black p-5">Account</a>
       </nav>

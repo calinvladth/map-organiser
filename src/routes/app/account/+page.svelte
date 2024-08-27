@@ -107,7 +107,7 @@
       <Button type="submit">Save</Button>
     </form>
 
-    <h1 class="text-3xl p-5 border-b border-black mt-5">Change Password</h1>
+    <h1 class="text-3xl p-5 border-b border-black mt-5">Change password</h1>
 
     <form
       on:submit|preventDefault={onPasswordChange}
