@@ -63,7 +63,6 @@
 
   async function onSubmit() {
     formError.name = Validation.checkText(form.name);
-    formError.description = Validation.checkText(form.description);
 
     const hasError = Validation.checkErrors(formError);
 
