@@ -22,7 +22,7 @@
 {#if loaded}
   <section class="flex items-start justify-start h-screen">
     <div
-      class="w-1/4 h-full border-r border-black flex items-center flex-col py-5"
+      class="w-1/6 h-full border-r border-black flex items-center flex-col py-5"
     >
       <div
         class="border border-black w-20 h-20 rounded-full text-center flex items-center justify-center"
