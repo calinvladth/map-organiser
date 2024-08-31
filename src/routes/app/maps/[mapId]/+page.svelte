@@ -9,6 +9,7 @@
   import replaceKeysInUrl from "../../../../utils/replaceKeysInURL";
   import { MAP_ZOOM, ROUTES } from "../../../../utils/constants";
   import Meta from "../../../../components/meta.svelte";
+  import Badge from "../../../../components/badge.svelte";
   import Loading from "../../../../components/loading.svelte";
 
   const zoom = $page.url.searchParams.get("zoom") || MAP_ZOOM;
@@ -97,6 +98,9 @@
             goto(replaceKeysInUrl(ROUTES.MAP_EDIT, { mapId }));
           }}>Edit map</Button
         >
+      </div>
+      <div class="flex gap-1 items-center">
+        <p>{map.name} - <Badge text={picks.length + " " + ( picks.length > 0 ? "markers" : "marker")} style={picks.length > 0 ? "dark" : "default"}></Badge></p>
       </div>
       <div>
         {#if !map?.isCentered}
