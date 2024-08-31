@@ -26,7 +26,10 @@
     if ("geolocation" in navigator) {
       await navigator.geolocation.getCurrentPosition((position) => {
         location = [position.coords.latitude, position.coords.longitude];
-      });
+      }, (e) => {
+        console.warn(e.message);
+        location = [47.63874029360885, -3.455008569208755]
+      })
     }
   }
 
