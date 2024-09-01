@@ -12,6 +12,7 @@
   export let map: MapType;
   export let activePick: string;
   export let mapId: string;
+  export let pickView: boolean = false;
 
   let latLng;
   let marker;
@@ -21,6 +22,14 @@
     latLng = pick.location;
 
     marker = L.marker(latLng, { draggable: true });
+
+    if (pickView) {
+        // Make it easier to see the active marker
+        L.Icon.Default.prototype.options["className"] = "blinking"
+    } else {
+        // Reset to avoid all markers blinking after saving
+        L.Icon.Default.prototype.options["className"] = ""
+    }
 
     if (pick.name) {
       marker.bindPopup(`${pick.name}`);

@@ -7,15 +7,15 @@
   import { MAP_ZOOM } from "../utils/constants";
 
   export let zoom = MAP_ZOOM;
-  export let location;
+  export let location: Array<number>;
   export let addPickView;
   export let picks = [];
   export let activePick;
   export let mapId;
 
   let L;
-  let mapElement;
-  let map;
+  let mapElement: HTMLElement;
+  let map: any;
   let loaded = false;
 
   onMount(async () => {
@@ -28,7 +28,7 @@
       zoom: zoom,
     });
 
-    map.on("dragend", (event) => {
+    map.on("dragend", (event: any) => {
       const center = event.target.getCenter();
 
       location = [center.lat, center.lng];
@@ -37,7 +37,7 @@
       goto(`?${$page.url.searchParams.toString()}`);
     });
 
-    map.on("geosearch/showlocation", (event) => {
+    map.on("geosearch/showlocation", (event: any) => {
       const latLng = [event.location.y, event.location.x];
       location = latLng;
 
@@ -45,7 +45,7 @@
       goto(`?${$page.url.searchParams.toString()}`);
     });
 
-    map.on("zoomend", (event) => {
+    map.on("zoomend", (event: any) => {
       const center = event.target.getCenter();
 
       location = [center.lat, center.lng];
@@ -73,10 +73,12 @@
 </script>
 
 <main>
+  <div class="pointer"></div>
   {#if loaded}
     {#if addPickView}
-      <Marker {map} pick={{ location }} bind:activePick bind:location />
-    {:else if activePick}
+      <Marker {map} pick={{ location }} pickView={true} bind:activePick bind:location />
+    {/if}
+    {#if activePick}
       <Marker
         {map}
         {mapId}
