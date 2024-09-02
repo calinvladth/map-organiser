@@ -9,15 +9,13 @@
 - [ ] Move all text to components. EG: `<h1> -> <Title>`, `<p> -> <Text>` This way, it's easier to have consistency all over the app.
 - [ ] Replace wherever marker is named as pick.
 
-
 #### Interactions quality
 - [ ] Catch invalid routes in 404 page
 - [ ] Save active map zoom changes. When you get back to the map, it should be as you left it. The save should be done to server
-- [ ] Manage map loading if you don't allow current location permissions from browser. The fallback location should be somewhere on earth
+- [x] Manage map loading if you don't allow current location permissions from browser. The fallback location should be somewhere on earth
 - [ ] On /map/mapId, make a view somewhere with the markers list. All markers from that map should be present both in map and in list for an easier interaction. The marker list on click should change the map location to the clicked marker
-- [ ] Add number of markers on map list
+- [x] Add number of markers on map list
 - [ ] Refreshing page should not move to another page
-
 
 ### User Management
 - [ ] Manage password reset flow

@@ -1,3 +1,5 @@
+![banner](map-organiser-banner.jpg)
+
 ## Video preview
 [![Watch the video](https://i.vimeocdn.com/video/1919473446-4eba41fe5a3eefa75ce23bee7060f9dd18932e27202c237df086e29ce66da220-d_295x166?r=pad)](https://player.vimeo.com/video/1003105403)
 

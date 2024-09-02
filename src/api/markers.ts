@@ -17,11 +17,23 @@ type MarkerFormError = {
     description: boolean;
 }
 
-async function list(mapId: string): Promise<MarkerType[] | undefined> {
+/**
+ * Get list of markers
+ * @param mapId ID of the map to retrieve markers
+ * @param fields Pocketbase fields to get only selected fields
+ */
+async function list(mapId: string, fields?: string[]): Promise<MarkerType[] | undefined> {
     try {
-        const response = await pb.collection('markers').getFullList({
+        const options: Record<string, any> = {
             filter: `map='${mapId}'`
-        })
+        };
+
+        if (fields && fields.length > 0) {
+            options.fields = fields.join(',');
+        }
+
+        const response = await pb.collection('markers').getFullList(options);
+
         return response.map(pick => ({ ...pick, location: [pick.lat, pick.lng] }))
     } catch (err) {
         errorHandler(err)
@@ -65,7 +77,6 @@ async function remove({ pickId, cb }: { pickId: string, cb: () => void }) {
 
 export type {
     MarkerType,
-    MarkerForm,
     MarkerFormError
 }
 

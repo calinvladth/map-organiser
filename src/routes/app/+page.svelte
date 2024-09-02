@@ -2,16 +2,24 @@
   import { onMount } from "svelte";
   import Button from "@/components/button.svelte";
   import { MapsApi, type MapType } from "@/api/maps";
+  import { MarkersApi, type MarkerType } from "@/api/markers";
   import { pb } from "@/services/pb";
   import replaceKeysInUrl from "../../utils/replaceKeysInURL";
   import { ROUTES } from "../../utils/constants";
   import { goto } from "$app/navigation";
   import Meta from "../../components/meta.svelte";
+  import Badge from "../../components/badge.svelte";
 
   let maps: MapType[] = [];
 
   onMount(async () => {
     maps = await MapsApi.list(pb.authStore.model.id);
+    // For each map, get total of markers
+    for (const index of maps.keys()) {
+      const markers = await MarkersApi.list(maps[index].id, ["id"]);
+      // Add new total key
+      maps[index]["total"] = markers.length;
+    }
   });
 </script>
 
@@ -33,7 +41,7 @@
   {#each maps as map}
     <a href={replaceKeysInUrl(ROUTES.MAP, { mapId: map.id })}>
       <div class="w-full border-b border-black cursor-pointer p-5">
-        <p class="text-sm">{map.name}</p>
+        <p class="text-sm">{map.name} - <Badge text={map.total + " markers"} style={map.total > 0 ? "dark" : "default"}></Badge></p>
       </div>
     </a>
   {/each}
