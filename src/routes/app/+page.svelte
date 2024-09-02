@@ -41,7 +41,7 @@
   {#each maps as map}
     <a href={replaceKeysInUrl(ROUTES.MAP, { mapId: map.id })}>
       <div class="w-full border-b border-black cursor-pointer p-5">
-        <p class="text-sm">{map.name} - <Badge text={map.total + " " + ( map.total > 1 ? "markers" : "marker")} style={map.total > 0 ? "dark" : "default"}></Badge></p>
+        <p class="text-sm">{map.name} - <Badge text={map.total + " markers"} style={map.total > 0 ? "dark" : "default"}></Badge></p>
       </div>
     </a>
   {/each}

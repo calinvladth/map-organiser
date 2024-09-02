@@ -100,7 +100,7 @@
         >
       </div>
       <div class="flex gap-1 items-center">
-        <p>{map.name} - <Badge text={picks.length + " " + ( picks.length > 1 ? "markers" : "marker")} style={picks.length > 0 ? "dark" : "default"}></Badge></p>
+        <p>{map.name} - <Badge text={picks.length + " markers"} style={picks.length > 0 ? "dark" : "default"}></Badge></p>
       </div>
       <div>
         {#if !map?.isCentered}
