@@ -30,7 +30,7 @@ $ yarn start
 From ./pb, start the database server
 
 Important: 
-* You need to download pocketbase based on your system
+* You need to download [pocketbase](https://pocketbase.io/docs/) based on your system
 * Extract the pocketbase file to ./pb
 ```
 $ cd pb/
